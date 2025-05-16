@@ -1,0 +1,54 @@
+<ion-content class="ion-padding">
+
+  <!-- Create Account di pojok kanan atas -->
+  <div class="top-right">
+    <ion-text color="warning">
+      <h3 (click)="goToRegister()">Create an account</h3>
+    </ion-text>
+  </div>
+
+  <!-- Judul LOGIN -->
+  <ion-text color="dark">
+    <h1>LOGIN</h1>
+  </ion-text>
+
+  <!-- Deskripsi -->
+  <p class="description">
+    Enter your e-mail account and password to browse Tren-z collection
+  </p>
+
+  <!-- Form Login -->
+  <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+    <ion-item>
+      <ion-label position="floating">Email</ion-label>
+      <ion-input type="email" formControlName="email"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Password</ion-label>
+      <ion-input type="password" formControlName="password"></ion-input>
+    </ion-item>
+
+    <!-- Checkbox dan Forgot Password -->
+    <ion-row class="ion-align-items-center ion-justify-content-between ion-padding-top">
+      <ion-col size="6">
+        <ion-checkbox formControlName="rememberMe"></ion-checkbox>
+        <ion-label> Stay Signed In</ion-label>
+      </ion-col>
+      <ion-col size="6" class="ion-text-end">
+        <ion-text color="medium" (click)="forgotPassword()">Forgot password?</ion-text>
+      </ion-col>
+    </ion-row>
+
+    <!-- Terms & Condition -->
+    <p class="terms">
+      By signing in you accept our <strong>Terms & Conditions</strong> and <strong>Privacy Policy</strong>.
+    </p>
+
+    <!-- Tombol Login -->
+    <ion-button expand="block" type="submit" [disabled]="!loginForm.valid" color="dark">
+      Login
+    </ion-button>
+  </form>
+
+</ion-content>
