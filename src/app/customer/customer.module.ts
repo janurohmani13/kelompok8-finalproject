@@ -1,5 +1,4 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CustomerRoutingModule } from './customer-routing.module';
@@ -11,6 +10,8 @@ import { VerifyPage } from './verify/verify.page';
 import { CompleteProfilePage } from './complete-profile/complete-profile.page';
 import { HomePage } from './home/home.page';
 import { PaymentPage } from './payment/payment.page';
+import { TransactionSuccessPage } from './transaction-success/transaction-success.page';
+import { CommonModule, CurrencyPipe } from '@angular/common'; 
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { PaymentPage } from './payment/payment.page';
     VerifyPage,
     CompleteProfilePage,
     HomePage,
-    PaymentPage
+    PaymentPage,
+    TransactionSuccessPage  // Declare TransactionSuccessPage here
   ],
   imports: [
     CommonModule,
@@ -30,6 +32,7 @@ import { PaymentPage } from './payment/payment.page';
     ReactiveFormsModule,
     CustomerRoutingModule
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]  // Tambahkan CUSTOM_ELEMENTS_SCHEMA
+  providers: [CurrencyPipe], 
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]  // Add CUSTOM_ELEMENTS_SCHEMA to handle custom web components
 })
 export class CustomerModule {}

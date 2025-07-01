@@ -62,7 +62,7 @@ export class CartPage implements OnInit {
 
 
   loadWishlist() {
-    this.http.get<any[]>('http://localhost:8000/api/wishlist').subscribe(
+    this.http.get<any[]>('https://trend3.shop/api/wishlist').subscribe(
       (data) => {
         this.wishlist = data;
       },

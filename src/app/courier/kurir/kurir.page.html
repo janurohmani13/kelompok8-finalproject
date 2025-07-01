@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar color="light">
+    <ion-title>Portal Pengiriman Paket</ion-title>
+  </ion-toolbar>
+  <ion-segment [(ngModel)]="tab">
+    <ion-segment-button value="belum">Belum Dikirim</ion-segment-button>
+    <ion-segment-button value="dikirim">Dikirim</ion-segment-button>
+    <ion-segment-button value="terkirim">Terkirim</ion-segment-button>
+  </ion-segment>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-list>
+    <ion-radio-group [(ngModel)]="selectedPaketId">
+      <ion-item *ngFor="let paket of filteredPaketList" (click)="goToDetail(paket)">
+        <ion-label>
+          <h2>{{ paket.name }}</h2>
+          <p>{{ paket.address }}</p>
+          <small>Status: {{ paket.status }}</small>
+        </ion-label>
+        <ion-radio slot="start" [value]="paket.id" (click)="$event.stopPropagation(); selectPaket(paket.id)"></ion-radio>
+      </ion-item>
+    </ion-radio-group>
+  </ion-list>
+
+  <ion-button expand="block" (click)="updateStatus()" [disabled]="!selectedPaketId || tab !== 'belum'">
+    Update status ke dikirim
+  </ion-button>
+</ion-content>

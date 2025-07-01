@@ -44,7 +44,7 @@ export class ProfilePage implements OnInit {
       Authorization: `Bearer ${token}`,
     });
 
-    this.http.get('http://localhost:8000/api/profile', { headers }).subscribe(
+    this.http.get('https://trend3.shop/api/profile', { headers }).subscribe(
       (response: any) => {
         this.user = response.data;
 
@@ -54,7 +54,7 @@ export class ProfilePage implements OnInit {
         ) {
           this.user.profile_picture = this.user.profile_picture.startsWith('http')
             ? this.user.profile_picture
-            : `http://localhost:8000/storage/${this.user.profile_picture}`;
+            : `https://trend3.shop/storage/${this.user.profile_picture}`;
         } else {
           this.user.profile_picture = 'assets/img/default-avatar.png';
         }

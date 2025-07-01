@@ -63,7 +63,7 @@ export class CheckoutPage implements OnInit {
 
       // Jika belum ada address dari query, ambil default dari API
       if (!this.address) {
-        this.http.get<any>('http://localhost:8000/api/addresses/default', { headers }).subscribe({
+        this.http.get<any>('https://trend3.shop/api/addresses/default', { headers }).subscribe({
           next: (data) => {
             this.address = data;
             if (!this.address || Object.keys(this.address).length === 0) {

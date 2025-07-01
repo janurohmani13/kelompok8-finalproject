@@ -1,0 +1,136 @@
+<!-- Ion Menu -->
+<ion-menu side="start" menuId="mainMenu" contentId="main-content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Courier Dashboard </ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <ion-list>
+      <ion-item button (click)="navigateTo('/cart')">
+        <ion-icon name="cart-outline" slot="start"></ion-icon>
+        <ion-label>Cart</ion-label>
+        <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
+      </ion-item>
+
+      <ion-item button (click)="navigateTo('/wishlist')">
+        <ion-icon name="heart-outline" slot="start"></ion-icon>
+        <ion-label>Wishlist</ion-label>
+        <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
+      </ion-item>
+
+      <ion-item button (click)="openUserMenu($event)">
+        <ion-icon name="person-circle-outline" slot="start"></ion-icon>
+        <ion-label>User</ion-label>
+        <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<!-- Page Header -->
+<ion-header>
+  <!-- Top Bar with Menu and Search -->
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="false"></ion-menu-button>
+    </ion-buttons>
+
+    <ion-searchbar
+      [(ngModel)]="searchQuery"
+      placeholder="Search pengiriman"
+      (ionFocus)="showSearchOverlay()"
+      class="custom-searchbar"
+    ></ion-searchbar>
+
+    <ion-buttons slot="end">
+      <ion-button fill="clear">
+        <ion-icon name="notifications-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+  <!-- Segmented Tab Filter -->
+  
+</ion-header>
+
+<!-- Page Content -->
+<!-- Page Content -->
+<ion-content class="ion-padding">
+  <!-- Express Package Section -->
+  <ion-card class="delivery-card">
+    <ion-card-header>
+      <ion-card-title>Paket Express</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item lines="none" (click)="selectPackage('express')">
+        <ion-radio slot="start"></ion-radio>
+        <ion-label>James Drown</ion-label>
+        <ion-label>Jl. KH. Mas Mansyur No.75</ion-label>
+        <ion-badge color="primary">Belum dikirim</ion-badge>
+      </ion-item>
+      <ion-item lines="none" (click)="selectPackage('express')">
+        <ion-radio slot="start"></ion-radio>
+        <ion-label>Camel Rine</ion-label>
+        <ion-label>Jl. Marina Raya No.6</ion-label>
+        <ion-badge color="primary">Belum dikirim</ion-badge>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Regular Package Section -->
+  <ion-card class="delivery-card">
+    <ion-card-header>
+      <ion-card-title>Paket Reguler</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item lines="none" (click)="selectPackage('reguler')">
+        <ion-radio slot="start"></ion-radio>
+        <ion-label>Lucky</ion-label>
+        <ion-label>Jl. Kamal Raya No. 8</ion-label>
+        <ion-badge color="primary">Belum dikirim</ion-badge>
+      </ion-item>
+      <ion-item lines="none" (click)="selectPackage('reguler')">
+        <ion-radio slot="start"></ion-radio>
+        <ion-label>Ryan</ion-label>
+        <ion-label>Jl. Kebon Jeruk III No.1</ion-label>
+        <ion-badge color="primary">Belum dikirim</ion-badge>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Update Status Button -->
+  <ion-button expand="block" color="primary" (click)="updateStatus()">
+    Update status
+  </ion-button>
+</ion-content>
+
+<!-- Footer / Tabs -->
+<ion-footer class="custom-footer">
+  <ion-toolbar>
+    <ion-tabs>
+      <ion-tab-bar slot="bottom">
+        <ion-tab-button tab="courier/home" class="tab-selected">
+          <ion-icon name="home-outline"></ion-icon>
+          <ion-label>Home</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button (click)="navigateTo('courier/delivered')">
+          <ion-icon name="heart-outline"></ion-icon>
+          <ion-label>Dikirim</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button (click)="navigateTo('courier/terkirim')">
+          <ion-icon name="cart-outline"></ion-icon>
+          <ion-label>Terkirim</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button (click)="navigateTo('courier/profile')">
+          <ion-icon name="person-circle-outline"></ion-icon>
+          <ion-label>Profile</ion-label>
+        </ion-tab-button>
+      </ion-tab-bar>
+    </ion-tabs>
+  </ion-toolbar>
+</ion-footer>

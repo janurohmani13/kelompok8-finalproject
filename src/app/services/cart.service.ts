@@ -37,6 +37,11 @@ export class CartService {
     });
   }
 
+  getTransactionId(): string {
+    // Get transaction ID from localStorage or wherever it is stored
+    return localStorage.getItem('transactionId') || ''; // You can adapt this to your setup
+  }
+
   addCartItem(data: {
     user_id: number;
     product_id: number;

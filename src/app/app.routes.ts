@@ -135,4 +135,47 @@ export const routes: Routes = [
     loadComponent: () => import('./customer/transaction-success/transaction-success.page').then( m => m.TransactionSuccessPage)
   },
 
+  // Courier routes
+  {
+    path: 'courier/home',
+    loadComponent: () => import('./courier/home/home.page').then(m => m.HomePage),
+  },
+  {
+    path: '',
+    loadComponent: () => import('./courier/splash/splash.page').then(m => m.SplashPage),
+  },
+  // {
+  //   path: 'address-form',
+  //   loadComponent: () => import('./courier/address-form/address-form.page').then(m => m.AddressFormPage),
+  // },
+  // {
+  //   path: 'cart',
+  //   loadComponent: () => import('./courier/cart/cart.page').then(m => m.CartPage),
+  // },
+  // {
+  //   path: 'product-detail/:id',
+  //   loadComponent: () => import('./courier/product-detail/product-detail.page').then(m => m.ProductDetailPage),
+  // },
+  {
+    path: 'courier/login',
+    loadComponent: () => import('./courier/login/login.page').then(m => m.LoginPage),
+  },
+  {
+    path: 'courier/signup',
+    loadComponent: () => import('./courier/signup/signup.page').then(m => m.SignupPage),
+  },
+
+  {
+    path: 'courier/profile',
+    loadComponent: () => import('./courier/profile/profile.page').then( m => m.ProfilePage)
+  },
+  {
+    path: 'profile',
+    loadComponent: () => import('./courier/profile/profile.page').then( m => m.ProfilePage)
+  },
+  {
+    path: 'delivered',
+    loadComponent: () => import('./courier/delivered/delivered.page').then( m => m.DeliveredPage)
+  },
+  
 ];

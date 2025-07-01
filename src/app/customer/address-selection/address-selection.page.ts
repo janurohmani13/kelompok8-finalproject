@@ -27,7 +27,7 @@ export class AddressSelectionPage implements OnInit {
       Authorization: `Bearer ${token}`,
     });
 
-    this.http.get<any[]>(`http://localhost:8000/api/addresses`, { headers }).subscribe(
+    this.http.get<any[]>(`https://trend3.shop/api/addresses`, { headers }).subscribe(
       (data) => {
         this.addresses = data;
       },

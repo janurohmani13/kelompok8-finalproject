@@ -84,7 +84,7 @@ export class AddressFormPage implements OnInit {
   submitForm() {
   if (this.addressForm.valid) {
     const token = localStorage.getItem('token');
-    this.http.post('http://localhost:8000/api/addresses', this.addressForm.value, {
+    this.http.post('https://trend3.shop/api/addresses', this.addressForm.value, {
       headers: { Authorization: `Bearer ${token}` }
     }).subscribe({
       next: (res) => {

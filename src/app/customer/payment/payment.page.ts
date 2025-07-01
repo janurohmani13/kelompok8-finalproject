@@ -36,33 +36,37 @@ export class PaymentPage implements OnInit {
   ) {}
 
   async ngOnInit() {
-  this.transactionId = this.activatedRoute.snapshot.paramMap.get('id');
-  console.log('Transaction ID:', this.transactionId);
-  try {
-    await this.loadSnapScript();
-  } catch (error) {
-    console.error('Snap.js gagal dimuat:', error);
+    this.transactionId = this.activatedRoute.snapshot.paramMap.get('id');
+    console.log('Transaction ID:', this.transactionId);
+
+    try {
+      await this.loadSnapScript();
+    } catch (error) {
+      console.error('Snap.js gagal dimuat:', error);
+    }
+
+    this.loadUserAddress();
+    this.loadCartItems();
+    if (this.transactionId) {
+      this.payWithMidtrans();
+    }
   }
-  this.payWithMidtrans();
-  this.loadUserAddress();
-  this.loadCartItems();
-}
 
-
+  // Fungsi untuk memuat alamat pengguna
   loadUserAddress() {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`,
     });
 
-    this.http.get<any>(`http://localhost:8000/api/addresses/${this.userId}`, { headers }).subscribe(
-      (data) => {
+    this.http.get<any>(`http://localhost:8000/api/addresses/${this.userId}`, { headers }).subscribe({
+      next: (data) => {
         this.address = data;
       },
-      (error) => {
+      error: (error) => {
         console.error('Failed to fetch user address', error);
-      }
-    );
+      },
+    });
 
     this.activatedRoute.queryParams.subscribe((params) => {
       if (params['selectedAddress']) {
@@ -75,18 +79,20 @@ export class PaymentPage implements OnInit {
     });
   }
 
+  // Fungsi untuk memuat barang-barang di keranjang
   loadCartItems() {
-    this.cartService.getCartItems(this.userId).subscribe(
-      (data) => {
+    this.cartService.getCartItems(this.userId).subscribe({
+      next: (data) => {
         this.cart = data;
         this.calculateTotalPrice();
       },
-      (error) => {
+      error: (error) => {
         console.error('Failed to fetch cart items', error);
-      }
-    );
+      },
+    });
   }
 
+  // Menghitung total harga barang di keranjang
   calculateTotalPrice() {
     this.totalPrice = this.cart.reduce((total, item) => {
       const price = item.product?.price || 0;
@@ -94,18 +100,22 @@ export class PaymentPage implements OnInit {
     }, 0);
   }
 
+  // Menghitung subtotal
   get subtotal() {
     return this.cart.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
   }
 
+  // Menghitung total harga (subtotal + ongkos kirim + biaya layanan)
   get total() {
     return this.subtotal + this.shipping + this.serviceFee;
   }
 
+  // Fungsi untuk mengubah alamat
   changeAddress() {
     this.router.navigate(['/address-selection']);
   }
 
+  // Fungsi untuk melakukan pembayaran dengan Midtrans
   async payWithMidtrans() {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
@@ -113,48 +123,46 @@ export class PaymentPage implements OnInit {
     });
 
     try {
+      // Tunggu sampai Snap siap
       await this.waitForSnap();
 
-   this.http
-  .post<any>(
-    'http://localhost:8000/api/midtrans/token/' + this.transactionId,
-    { transaction_id: this.transactionId }, // <-- kirim di body
-    { headers }
-  )
-  .subscribe({
-    next: (response) => {
-      const snapToken = response.snap_token;
+      this.http
+        .post<any>('https://trend3.shop/api/midtrans/token/' + this.transactionId, { transaction_id: this.transactionId }, { headers })
+        .subscribe({
+          next: (response) => {
+            const snapToken = response.snap_token;
 
-      window.snap.pay(snapToken, {
-        onSuccess: (result: any) => {
-          console.log('Payment Success:', result);
-          this.router.navigate(['/transaction-success']);
-        },
-        onPending: (result: any) => {
-          console.log('Payment Pending:', result);
-          this.router.navigate(['/transaction-pending']);
-        },
-        onError: (error: any) => {
-          console.error('Payment Failed:', error);
-          alert('Pembayaran gagal. Silakan coba lagi.');
-        },
-        onClose: () => {
-          console.log('Popup pembayaran ditutup.');
-        },
-      });
-    },
-    error: (err) => {
-      console.error('Error getting snap token:', err);
-      alert('Gagal memulai pembayaran.');
-    },
-  });
-
+            // Memulai proses pembayaran dengan Midtrans Snap
+            window.snap.pay(snapToken, {
+              onSuccess: (result: any) => {
+                console.log('Payment Success:', result);
+                this.router.navigate(['/transaction-success']);
+              },
+              onPending: (result: any) => {
+                console.log('Payment Pending:', result);
+                this.router.navigate(['/transaction-pending']);
+              },
+              onError: (error: any) => {
+                console.error('Payment Failed:', error);
+                alert('Pembayaran gagal. Silakan coba lagi.');
+              },
+              onClose: () => {
+                console.log('Popup pembayaran ditutup.');
+              },
+            });
+          },
+          error: (err) => {
+            console.error('Error getting snap token:', err);
+            alert('Gagal memulai pembayaran.');
+          },
+        });
     } catch (e) {
-      console.error(e);
+      console.error('Error:', e);
       alert('Midtrans Snap gagal dimuat. Silakan refresh halaman.');
     }
   }
 
+  // Fungsi untuk menunggu Snap.js siap
   async waitForSnap(): Promise<void> {
     let tries = 0;
     return new Promise((resolve, reject) => {
@@ -173,6 +181,7 @@ export class PaymentPage implements OnInit {
     });
   }
 
+  // Memuat script Snap.js
   loadSnapScript(): Promise<void> {
     return new Promise((resolve, reject) => {
       if (document.getElementById('midtrans-script')) {
@@ -183,7 +192,7 @@ export class PaymentPage implements OnInit {
       const script = document.createElement('script');
       script.id = 'midtrans-script';
       script.src = 'https://app.sandbox.midtrans.com/snap/snap.js';
-      script.setAttribute('data-client-key', 'SB-Mid-client-KL-gJ5f8INuHbzbS');
+      script.setAttribute('data-client-key', 'SB-Mid-client-Fcq0hJNqMk5tN4WA');
       script.onload = () => {
         console.log('Snap.js loaded');
         resolve();
@@ -196,6 +205,7 @@ export class PaymentPage implements OnInit {
     });
   }
 
+  // Navigasi ke halaman lain
   navigateTo(route: string) {
     this.router.navigate([route]);
   }

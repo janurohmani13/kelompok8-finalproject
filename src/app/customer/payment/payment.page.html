@@ -1,4 +1,3 @@
-<!-- payment.page.html -->
 <ion-header>
   <ion-toolbar>
     <ion-title>Payment</ion-title>
@@ -6,5 +5,10 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <p>Mengalihkan ke pembayaran...</p>
+  <div *ngIf="transactionId">
+    <p>Memproses pembayaran...</p>
+  </div>
+  <div *ngIf="!transactionId">
+    <p>Terjadi kesalahan: Tidak ada ID transaksi.</p>
+  </div>
 </ion-content>

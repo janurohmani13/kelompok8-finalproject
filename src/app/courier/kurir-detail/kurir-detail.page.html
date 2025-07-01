@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar color="light">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/kurir"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Detail Pengiriman</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<div class="page-header ion-padding">
+  <div>
+    {{ paket.receiverName }}
+    <ion-icon name="navigate" slot="end" class="nav-icon" (click)="bukaNavigasi(paket.address)"></ion-icon>
+  </div>
+  <div>
+    {{ paket.address }}
+  </div>
+</div>
+
+<ion-content class="ion-padding">
+  <h2>{{ paket.name }}</h2>
+  <p>{{ paket.address }}</p>
+
+  <div class="map-placeholder">
+    Peta lokasi paket (Lat: {{ paket.lat }}, Lng: {{ paket.lng }})
+  </div>
+
+  <ion-button *ngIf="!sudahSampai" expand="block" (click)="sampaiTitik()">
+    Saya sudah sampai titik lokasi
+  </ion-button>
+
+  <div *ngIf="sudahSampai" class="done-text">
+    Anda sudah sampai pada titik lokasi.
+  </div>
+
+  <ion-button *ngIf="sudahSampai" expand="block" color="dark" (click)="updateStatusDikirim()">
+    Update status paket diterima
+  </ion-button>
+</ion-content>

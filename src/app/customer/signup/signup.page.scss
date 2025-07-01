@@ -190,3 +190,8 @@ ion-header.ion-no-border ion-toolbar {
     }
 }
 
+ion-content {
+  --padding-bottom: env(safe-area-inset-bottom);
+}
+
+

@@ -46,7 +46,7 @@ export class TransactionDetailPage implements OnInit {
     });
 
     this.http
-      .get<any>(`http://localhost:8000/api/transactions/${this.transactionId}`, { headers })
+      .get<any>(`https://trend3.shop/api/transactions/${this.transactionId}`, { headers })
       .subscribe({
         next: (data) => {
           this.transaction = data;
@@ -68,7 +68,7 @@ export class TransactionDetailPage implements OnInit {
 
       this.http
         .post<any>(
-          `http://localhost:8000/api/midtrans/token/${this.transactionId}`,
+          `https://trend3.shop/api/midtrans/token/${this.transactionId}`,
           { transaction_id: this.transactionId },
           { headers }
         )

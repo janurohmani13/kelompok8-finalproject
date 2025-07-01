@@ -77,7 +77,7 @@ export class AccountSettingsPage implements OnInit {
     Authorization: `Bearer ${token}`,
   });
 
-  this.http.post('http://localhost:8000/api/profile', formData, { headers })
+  this.http.post('https://trend3.shop/api/profile', formData, { headers })
     .subscribe(
       (response) => {
         console.log('Account settings updated successfully:', response);
