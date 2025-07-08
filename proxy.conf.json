@@ -1,0 +1,8 @@
+{
+  "/api": {
+    "target": "https://trendz3.shop",
+    "secure": true,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+} 

@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Daftar</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="auth-container">
+    <div class="logo-section">
+      <img src="assets/img/logo.png" alt="Trendz Logo">
+    </div>
+
+    <div class="form-section">
+      <h1>Daftar Akun</h1>
+      <p>Buat akun baru untuk mulai berbelanja</p>
+
+      <div class="input-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" [(ngModel)]="username" placeholder="Masukkan username Anda">
+      </div>
+
+      <div class="input-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" [(ngModel)]="email" placeholder="Masukkan email Anda">
+      </div>
+
+      <div class="input-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" [(ngModel)]="password" placeholder="Masukkan password Anda">
+      </div>
+
+      <div class="input-group">
+        <label for="password_confirmation">Konfirmasi Password</label>
+        <input type="password" id="password_confirmation" [(ngModel)]="password_confirmation" placeholder="Masukkan ulang password Anda">
+      </div>
+
+      <div class="terms-box">
+        <input type="checkbox" id="terms" [(ngModel)]="acceptedTerms">
+        <label for="terms">Dengan mendaftar, saya menyetujui <a href="#">Syarat & Ketentuan</a> dan <a href="#">Kebijakan Privasi</a> Tren-z</label>
+      </div>
+
+      <button class="btn-signup" (click)="onRegister()">Daftar</button>
+
+      <div class="login-option">
+        <p>Sudah punya akun? <span (click)="goToLogin()">Masuk</span></p>
+      </div>
+    </div>
+  </div>
+</ion-content>

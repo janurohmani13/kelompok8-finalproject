@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Masuk</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="auth-container">
+    <div class="logo-section">
+      <img src="assets/img/logo.png" alt="Trendz Logo">
+    </div>
+
+    <div class="form-section">
+      <h1>Masuk</h1>
+      <p>Silakan masuk untuk melanjutkan</p>
+
+      <div class="input-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" [(ngModel)]="email" placeholder="Masukkan email Anda">
+      </div>
+
+      <div class="input-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" [(ngModel)]="password" placeholder="Masukkan password Anda">
+      </div>
+
+      <div class="form-footer">
+        <div class="remember-me">
+          <input type="checkbox" id="remember">
+          <label for="remember">Ingat saya</label>
+        </div>
+        <span class="forgot-pw" (click)="goToForgotPassword()">Lupa password?</span>
+      </div>
+
+      <button 
+        class="btn-login" 
+        (click)="onLogin()" 
+        type="button">
+        Masuk
+      </button>
+
+      <div class="register-option">
+        <p>Belum punya akun? <span (click)="goToSignup()">Daftar</span></p>
+      </div>
+    </div>
+  </div>
+</ion-content>
